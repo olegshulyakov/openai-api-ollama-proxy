@@ -1,6 +1,7 @@
 services:
   web:
     image: node:latest
+    restart: unless-stopped
     command: >
       sh -c "npm i && npm run start"
     restart: unless-stopped

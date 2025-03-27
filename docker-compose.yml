@@ -1,0 +1,9 @@
+services:
+  web:
+    image: node:latest
+    command: >
+      sh -c "npm i && npm run start"
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - .:/app

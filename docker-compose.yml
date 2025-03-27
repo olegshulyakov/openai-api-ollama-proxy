@@ -4,7 +4,6 @@ services:
     restart: unless-stopped
     command: >
       sh -c "npm i && npm run start"
-    restart: unless-stopped
     working_dir: /app
     volumes:
       - .:/app

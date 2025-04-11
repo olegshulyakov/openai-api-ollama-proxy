@@ -14,12 +14,41 @@ This server will convert a couple of endpoints mimic the Ollama API and converts
 
 ## To do
 
-- [ ] Create a Dockerfile
-- [ ] Set up CI/CD
 - [ ] Add tests
 - [ ] Add correct error handling
 
 ## How to use
+
+### Docker
+
+```
+docker run -d \
+  --name openai-api-server-for-enchanted \
+  -e OPENAI_API_BASE_URL=https://openrouter.ai/api \
+  -e OPENAI_ALLOWED_MODELS= \
+  -p 3033:3033 \
+  --restart unless-stopped \
+  ghcr.io/talyguryn/openai-api-server-for-enchanted-app:latest
+```
+
+### Docker Compose
+
+```yml
+version: "3.4"
+services:
+  openai-api-server-for-enchanted:
+    image: ghcr.io/talyguryn/openai-api-server-for-enchanted-app:latest
+    container_name: openai-api-server-for-enchanted
+    mem_limit: 64m
+    environment:
+      - OPENAI_API_BASE_URL=https://openrouter.ai/api
+      - OPENAI_ALLOWED_MODELS=
+    ports:
+      - 3033:3033
+    restart: unless-stopped
+```
+
+## How to develop
 
 Clone the repository and install dependencies:
 

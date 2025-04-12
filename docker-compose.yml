@@ -1,6 +1,6 @@
 services:
   web:
-    image: node:latest
+    image: node:18-alpine
     restart: unless-stopped
     command: >
       sh -c "npm i && npm run start"

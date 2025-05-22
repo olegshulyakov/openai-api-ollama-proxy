@@ -26,7 +26,7 @@ WORKDIR /app
 COPY --from=builder /app/ollama-openai-proxy .
 
 # Expose the port your app runs on (default 3033)
-EXPOSE 8080
+EXPOSE 11434
 
 # Define environment variables with default values if needed
 ENV NODE_ENV=production

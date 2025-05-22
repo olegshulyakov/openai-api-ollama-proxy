@@ -16,7 +16,7 @@ type AppConfig struct {
 func LoadConfig() AppConfig {
 	port := os.Getenv("PROXY_PORT")
 	if port == "" {
-		port = "8080" // Default port
+		port = "11434" // Default port
 	}
 
 	openAIBaseURL := os.Getenv("OPENAI_API_BASE_URL")

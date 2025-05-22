@@ -3,10 +3,11 @@ package main
 import (
 	"log"
 	"net/http"
+
 	// "os" // os is now used within config.LoadConfig()
-	"ollama-openai-proxy/internal/config"    // Add this import
-	"ollama-openai-proxy/internal/handlers"
-	"ollama-openai-proxy/internal/middleware"
+	"ollama-openai-proxy/src/config" // Add this import
+	"ollama-openai-proxy/src/handlers"
+	"ollama-openai-proxy/src/middleware"
 )
 
 // healthCheckHandler remains the same
@@ -22,7 +23,7 @@ func main() {
 	cfg := config.LoadConfig() // Load configuration
 
 	mux := http.NewServeMux()
-	
+
 	mux.HandleFunc("/", healthCheckHandler) // healthCheckHandler doesn't need config
 
 	mux.HandleFunc("/api/tags", func(w http.ResponseWriter, r *http.Request) {

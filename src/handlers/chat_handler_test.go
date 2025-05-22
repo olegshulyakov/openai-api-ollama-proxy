@@ -8,8 +8,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
-	"ollama-openai-proxy/internal/models" // Adjust if your module path is different
-	"reflect"
+	"ollama-openai-proxy/src/models" // Adjust if your module path is different
 	"strings"
 	"testing"
 	"time"
@@ -404,7 +403,7 @@ func TestChatHandler_Streaming_OpenAIErrorAfterPartialStream_MalformedJSON(t *te
         io.WriteString(w, `data: {"id":"chatcmpl-1","object":"chat.completion.chunk","created":1700000000,"model":"gpt-test","choices":[{"index":0,"delta":{"content":"Broken..."}`+"\n\n") // No closing }
         flusher.Flush()
         time.Sleep(5 * time.Millisecond)
-        
+
         // This part might not be reached by the client if the connection breaks due to error
         // io.WriteString(w, `data: [DONE]`+"\n\n")
         // flusher.Flush()
@@ -440,7 +439,7 @@ func TestChatHandler_Streaming_OpenAIErrorAfterPartialStream_MalformedJSON(t *te
         }
         receivedOllamaChunks = append(receivedOllamaChunks, chunk)
     }
-    
+
     // Assert that we received the valid chunks before the error
     if len(receivedOllamaChunks) < 2 {
         t.Errorf("Expected at least 2 valid Ollama chunks before malformed data, got %d: %+v", len(receivedOllamaChunks), receivedOllamaChunks)

@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 // OllamaChatMessage represents a single message in an Ollama chat request.
 type OllamaChatMessage struct {
 	Role    string   `json:"role"`

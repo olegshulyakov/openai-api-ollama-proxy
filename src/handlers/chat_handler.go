@@ -7,11 +7,12 @@ import (
 	"io"
 	"log"
 	"net/http"
+
 	// "os" // No longer needed for OPENAI_API_BASE_URL here
 	"strings"
 	"time"
 
-	"ollama-openai-proxy/internal/models"
+	"ollama-openai-proxy/src/models"
 )
 
 // ChatHandler signature changed

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"ollama-openai-proxy/internal/models" // Assuming module name is ollama-openai-proxy
+	"ollama-openai-proxy/src/models" // Assuming module name is ollama-openai-proxy
 	"reflect"
 	"strings"
 	"testing"

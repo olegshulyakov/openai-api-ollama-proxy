@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+
 	// "os" // No longer needed for env vars here
 	// "strings" // strings.Split is used in config.LoadConfig, not directly here anymore for allowedModelsList
+	"ollama-openai-proxy/src/models"
 	"time"
-	"ollama-openai-proxy/internal/models"
 )
 
 // GetModelsHandler handles requests to /api/tags.
@@ -26,7 +27,7 @@ func GetModelsHandler(w http.ResponseWriter, r *http.Request, openAIBaseURL stri
 		http.Error(w, "Unauthorized: Missing Authorization header", http.StatusUnauthorized)
 		return
 	}
-	
+
 	client := &http.Client{Timeout: 10 * time.Second}
 	req, err := http.NewRequest("GET", openAIBaseURL+"/v1/models", nil) // Use passed-in openAIBaseURL
 	if err != nil {
@@ -63,7 +64,7 @@ func GetModelsHandler(w http.ResponseWriter, r *http.Request, openAIBaseURL stri
 		allowedMap := make(map[string]bool)
 		for _, modelID := range allowedModelsList {
 			// Assuming model IDs are already trimmed by LoadConfig
-			allowedMap[modelID] = true 
+			allowedMap[modelID] = true
 		}
 		for _, model := range openAIResp.Data {
 			if _, ok := allowedMap[model.ID]; ok {
@@ -73,7 +74,7 @@ func GetModelsHandler(w http.ResponseWriter, r *http.Request, openAIBaseURL stri
 	} else {
 		filteredOpenAIModels = openAIResp.Data
 	}
-	
+
 	ollamaModels := make([]models.OllamaModel, len(filteredOpenAIModels))
 	for i, openAIModel := range filteredOpenAIModels {
 		ollamaModels[i] = models.OllamaModel{
@@ -84,11 +85,11 @@ func GetModelsHandler(w http.ResponseWriter, r *http.Request, openAIBaseURL stri
 			Digest:     "", // Not available from OpenAI
 			Details: models.OllamaModelDetails{ // Populate with defaults or leave empty
 				ParentModel:       "",
-				Format:            "", 
-				Family:            "", 
+				Format:            "",
+				Family:            "",
 				Families:          nil,
-				ParameterSize:     "", 
-				QuantizationLevel: "", 
+				ParameterSize:     "",
+				QuantizationLevel: "",
 			},
 		}
 	}

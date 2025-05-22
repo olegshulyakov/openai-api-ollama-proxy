@@ -12,11 +12,11 @@ import (
 
 // healthCheckHandler remains the same
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
-    if r.Method != http.MethodHead {
-        http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-        return
-    }
-    w.WriteHeader(http.StatusOK)
+	if r.Method != http.MethodHead {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
 }
 
 func main() {
@@ -32,7 +32,6 @@ func main() {
 	mux.HandleFunc("/api/chat", func(w http.ResponseWriter, r *http.Request) {
 		handlers.ChatHandler(w, r, cfg.OpenAIBaseURL)
 	})
-
 
 	loggedMux := middleware.LoggingMiddleware(mux)
 

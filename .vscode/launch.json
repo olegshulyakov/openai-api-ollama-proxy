@@ -7,7 +7,8 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceFolder}",
-      "dlvFlags": ["--check-go-version=false"]
+      "dlvFlags": ["--check-go-version=false"],
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

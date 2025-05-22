@@ -9,5 +9,6 @@ services:
     ports:
       - 11434:11434
     environment:
+      - PROXY_PORT=11434
       - OPENAI_API_BASE_URL=https://api.openai.com
       - OPENAI_ALLOWED_MODELS=gpt-4o,gpt-3.5-turbo

@@ -77,11 +77,16 @@ func GetModelsHandler(w http.ResponseWriter, r *http.Request, openAIBaseURL stri
 
 	ollamaModels := make([]models.OllamaModel, len(filteredOpenAIModels))
 	for i, openAIModel := range filteredOpenAIModels {
+		name := openAIModel.Name
+		if len(name) == 0 {
+			name = openAIModel.ID
+		}
+
 		ollamaModels[i] = models.OllamaModel{
-			Name:       openAIModel.ID,
+			Name:       name,
 			Model:      openAIModel.ID,
 			ModifiedAt: time.Unix(openAIModel.Created, 0).UTC().Format(time.RFC3339),
-			Size:       0, // Not available from OpenAI
+			Size:       0,  // Not available from OpenAI
 			Digest:     "", // Not available from OpenAI
 			Details: models.OllamaModelDetails{ // Populate with defaults or leave empty
 				ParentModel:       "",

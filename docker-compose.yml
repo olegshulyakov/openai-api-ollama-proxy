@@ -1,9 +1,13 @@
 services:
-  web:
-    image: node:18-alpine
+  ollama-openai-proxy:
+    image: ghcr.io/olegshulyakov/ollama-openai-proxy:latest
+    container_name: ollama-openai-proxy
     restart: unless-stopped
-    command: >
-      sh -c "npm i && npm run start"
-    working_dir: /app
-    volumes:
-      - .:/app
+    mem_limit: 64m
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - 8080:8080
+    environment:
+      - OPENAI_API_BASE_URL=https://api.openai.com
+      - OPENAI_ALLOWED_MODELS=gpt-4o,gpt-3.5-turbo

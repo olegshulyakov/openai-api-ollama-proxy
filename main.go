@@ -25,7 +25,9 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", healthCheckHandler) // healthCheckHandler doesn't need config
-
+	mux.HandleFunc("/api/version", func(w http.ResponseWriter, r *http.Request) {
+		handlers.GetVersionHandler(w, r)
+	})
 	mux.HandleFunc("/api/tags", func(w http.ResponseWriter, r *http.Request) {
 		handlers.GetModelsHandler(w, r, cfg.OpenAIBaseURL, cfg.OpenAIAllowedModels)
 	})

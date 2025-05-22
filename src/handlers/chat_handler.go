@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 
-	// "os" // No longer needed for OPENAI_API_BASE_URL here
 	"strings"
 	"time"
 

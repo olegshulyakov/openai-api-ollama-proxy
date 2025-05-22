@@ -5,8 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	// "os" // No longer needed for env vars here
-	// "strings" // strings.Split is used in config.LoadConfig, not directly here anymore for allowedModelsList
 	"ollama-openai-proxy/src/models"
 	"time"
 )

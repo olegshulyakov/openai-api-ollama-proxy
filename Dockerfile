@@ -5,7 +5,7 @@ FROM golang:1.23-alpine AS builder
 WORKDIR /app
 
 # Copy Go module files
-COPY go.mod go.sum ./
+COPY go.mod ./
 
 # Download dependencies
 RUN go mod download
@@ -29,7 +29,6 @@ COPY --from=builder /app/ollama-openai-proxy .
 EXPOSE 11434
 
 # Define environment variables with default values if needed
-ENV NODE_ENV=production
 ENV OPENAI_API_BASE_URL="https://api.openai.com"
 ENV OPENAI_ALLOWED_MODELS=""
 

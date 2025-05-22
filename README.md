@@ -27,7 +27,7 @@ docker run -d \
   --name ollama-openai-proxy \
   -e OPENAI_API_BASE_URL=https://api.openai.com \
   -e OPENAI_ALLOWED_MODELS=gpt-3.5-turbo,gpt-4o \
-  -p 8080:8080 \
+  -p 11434:11434 \
   --restart unless-stopped \
   ghcr.io/olegshulyakov/ollama-openai-proxy:latest
 ```
@@ -45,7 +45,7 @@ services:
       - OPENAI_API_BASE_URL=https://api.openai.com
       - OPENAI_ALLOWED_MODELS=gpt-3.5-turbo,gpt-4o
     ports:
-      - 8080:8080
+      - 11434:11434
     restart: unless-stopped
 ```
 

@@ -53,6 +53,12 @@
       "type": "shell",
       "group": "build",
       "command": "docker build -t ollama-openai-proxy ."
+    },
+    {
+      "label": "Docker: Run",
+      "type": "shell",
+      "group": "build",
+      "command": "docker run --rm -it --env-file .env -p 11434:11434 --name ollama-openai-proxy ollama-openai-proxy"
     }
   ]
 }

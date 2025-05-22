@@ -2,11 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      "name": "Run",
+      "type": "go",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/index.js"
+      "mode": "debug",
+      "program": "${workspaceFolder}",
+      "dlvFlags": ["--check-go-version=false"]
     }
   ]
 }

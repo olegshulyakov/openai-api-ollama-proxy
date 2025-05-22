@@ -19,12 +19,17 @@ func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+// NotImplementedHandler handles requests to not implemented methods
+func NotImplementedHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
 func main() {
 	cfg := config.LoadConfig() // Load configuration
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", healthCheckHandler) // healthCheckHandler doesn't need config
+	mux.HandleFunc("/", healthCheckHandler)
 	mux.HandleFunc("/api/version", func(w http.ResponseWriter, r *http.Request) {
 		handlers.GetVersionHandler(w, r)
 	})
@@ -34,6 +39,16 @@ func main() {
 	mux.HandleFunc("/api/chat", func(w http.ResponseWriter, r *http.Request) {
 		handlers.ChatHandler(w, r, cfg.OpenAIBaseURL)
 	})
+	mux.HandleFunc("/api/generate", NotImplementedHandler)
+	mux.HandleFunc("/api/pull", NotImplementedHandler)
+	mux.HandleFunc("/api/push", NotImplementedHandler)
+	mux.HandleFunc("/api/create", NotImplementedHandler)
+	mux.HandleFunc("/api/ps", NotImplementedHandler)
+	mux.HandleFunc("/api/copy", NotImplementedHandler)
+	mux.HandleFunc("/api/delete", NotImplementedHandler)
+	mux.HandleFunc("/api/show", NotImplementedHandler)
+	mux.HandleFunc("/api/embed", NotImplementedHandler)
+	mux.HandleFunc("/api/embeddings", NotImplementedHandler)
 
 	loggedMux := middleware.LoggingMiddleware(mux)
 

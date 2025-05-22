@@ -2,12 +2,56 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build: Docker",
+      "label": "Go: Build",
       "type": "shell",
+      "command": "go",
+      "args": ["build"],
       "group": {
         "kind": "build",
         "isDefault": true
       },
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Go: Run",
+      "type": "shell",
+      "command": "go",
+      "args": ["run", "${file}"],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Go: Test",
+      "type": "shell",
+      "command": "go",
+      "args": ["test", "./..."],
+      "group": "test",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Go: Format (go fmt)",
+      "type": "shell",
+      "command": "go",
+      "args": ["fmt"],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$go"
+    },
+    {
+      "label": "Docker: Build",
+      "type": "shell",
+      "group": "build",
       "command": "docker build -t ollama-openai-proxy ."
     }
   ]

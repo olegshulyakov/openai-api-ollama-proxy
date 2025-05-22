@@ -1,25 +1,37 @@
-# Use official Node.js runtime as a parent image
-FROM node:18-alpine
+# Stage 1: Build the Go application
+FROM golang:1.23-alpine AS builder
 
-# Set working directory in the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available)
-COPY package*.json ./
+# Copy Go module files
+COPY go.mod go.sum ./
 
-# Install app dependencies
-RUN npm install --omit=dev
+# Download dependencies
+RUN go mod download
 
-# Copy app source code to the working directory
+# Copy the rest of the application code
 COPY . .
 
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -o ollama-openai-proxy .
+
+# Stage 2: Create a lightweight runtime image
+FROM alpine:latest
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the built binary from the builder stage
+COPY --from=builder /app/ollama-openai-proxy .
+
 # Expose the port your app runs on (default 3033)
-EXPOSE 3033
+EXPOSE 11434
 
 # Define environment variables with default values if needed
 ENV NODE_ENV=production
 ENV OPENAI_API_BASE_URL="https://api.openai.com"
 ENV OPENAI_ALLOWED_MODELS=""
 
-# Define the command to run your app
-CMD ["npm", "start"]
+# Set the entrypoint to run the application
+ENTRYPOINT ["./ollama-openai-proxy"]

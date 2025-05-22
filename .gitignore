@@ -1,2 +1,13 @@
-node_modules/
+# Binaries
+ollama-openai-proxy
+
+# Environment files
 .env
+.env*
+
+# Dependency directories
+vendor/
+
+# IDE-specific files
+.idea/
+#.vscode/

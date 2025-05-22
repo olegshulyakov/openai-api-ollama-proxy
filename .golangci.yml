@@ -1,0 +1,19 @@
+linters:
+  enable:
+    - gofmt
+    - goimports
+    - revive
+    - govet
+    - staticcheck
+    - errcheck
+    - unused
+    - gosimple
+    - ineffassign
+    - typecheck
+
+run:
+  tests: true
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0

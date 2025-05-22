@@ -10,7 +10,7 @@ import (
 
 // GetVersionHandler handles requests to /api/version.
 // Signature changed to accept config values.
-func GetVersionHandler(w http.ResponseWriter, r *http.Request) {
+func GetVersionHandler(w http.ResponseWriter, r *http.Request, version string) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -22,7 +22,7 @@ func GetVersionHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ollamaResponse := models.OllamaVersionResponse{Version: "0.5.0"}
+	ollamaResponse := models.OllamaVersionResponse{Version: version}
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(ollamaResponse); err != nil {
 		log.Printf("Error encoding Ollama response: %v", err)

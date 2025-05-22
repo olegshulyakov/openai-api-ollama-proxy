@@ -7,6 +7,7 @@ import (
 
 // AppConfig holds the application configuration.
 type AppConfig struct {
+	Version             string
 	Port                string
 	OpenAIBaseURL       string
 	OpenAIAllowedModels []string
@@ -14,6 +15,11 @@ type AppConfig struct {
 
 // LoadConfig loads configuration from environment variables.
 func LoadConfig() AppConfig {
+	version := os.Getenv("OLLAMA_VERSION")
+	if version == "" {
+		version = "0.5.0" // Default version
+	}
+
 	port := os.Getenv("PROXY_PORT")
 	if port == "" {
 		port = "11434" // Default port
@@ -35,14 +41,14 @@ func LoadConfig() AppConfig {
 				allowedModelsList[i] = strings.TrimSpace(model)
 			}
 		} else {
-            allowedModelsList = []string{} // Ensure it's an empty list if env var is whitespace
-        }
+			allowedModelsList = []string{} // Ensure it's an empty list if env var is whitespace
+		}
 	} else {
-        allowedModelsList = []string{} // Ensure it's an empty list if env var is not set
-    }
-
+		allowedModelsList = []string{} // Ensure it's an empty list if env var is not set
+	}
 
 	return AppConfig{
+		Version:             version,
 		Port:                port,
 		OpenAIBaseURL:       openAIBaseURL,
 		OpenAIAllowedModels: allowedModelsList, // This will be an empty slice if not set or empty

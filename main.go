@@ -31,7 +31,7 @@ func main() {
 
 	mux.HandleFunc("/", healthCheckHandler)
 	mux.HandleFunc("/api/version", func(w http.ResponseWriter, r *http.Request) {
-		handlers.GetVersionHandler(w, r)
+		handlers.GetVersionHandler(w, r, cfg.Version)
 	})
 	mux.HandleFunc("/api/tags", func(w http.ResponseWriter, r *http.Request) {
 		handlers.GetModelsHandler(w, r, cfg.OpenAIBaseURL, cfg.OpenAIAllowedModels)

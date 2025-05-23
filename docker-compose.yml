@@ -2,7 +2,7 @@ services:
   ollama-openai-proxy:
     image: ghcr.io/olegshulyakov/ollama-openai-proxy:latest
     container_name: ollama-openai-proxy
-    restart: unless-stopped
+    restart: on-failure:5
     mem_limit: 64m
     security_opt:
       - no-new-privileges:true

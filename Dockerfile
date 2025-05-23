@@ -25,12 +25,15 @@ WORKDIR /app
 # Copy the built binary from the builder stage
 COPY --from=builder /app/ollama-openai-proxy .
 
-# Expose the port your app runs on (default 3033)
+# Expose the port your app runs on (default 11434)
 EXPOSE 11434
 
 # Define environment variables with default values if needed
 ENV OPENAI_API_BASE_URL="https://api.openai.com"
 ENV OPENAI_ALLOWED_MODELS=""
+
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD curl -f http://localhost:11434/health || exit 1
 
 # Set the entrypoint to run the application
 ENTRYPOINT ["./ollama-openai-proxy"]
